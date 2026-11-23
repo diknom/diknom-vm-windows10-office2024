@@ -73,7 +73,17 @@ menaikkan angka jauh lebih tinggi.
 - Free: sekitar **168 MB**
 - Swap: sekitar **1,5 GB**
 - RSS QEMU: sekitar **1,6 GB**
-- Sisa RAM untuk desktop Linux sangat sedikit
+- Free 168 MB itu **bukan RAM Windows saja**. Saat pengukuran, host juga
+  menjalankan **Hermes Agent (sesi ini), Chrome, desktop XFCE, cache, dan
+  zram/swap**. Jadi angka host terlihat hampir habis karena beban gabungan,
+  bukan karena guest memakai seluruh 4 GB.
+- CPU host **masih aman**: Celeron N4020 punya 2 core/2 thread. Task Manager
+  guest membaca CPU **2% saat idle**, **4% saat Word**, dan **3% saat tiga
+  aplikasi terbuka**. Proses QEMU sekitar **41–90%** (kira-kira 0,4–0,9 core,
+  tergantung fase boot/aplikasi), jadi dua core tidak tersaturasi. Bottleneck
+  utama ada di RAM dan eMMC, bukan CPU yang mentok.
+- Sisa RAM untuk desktop Linux sangat sedikit, jadi host bisa terasa berat
+  meskipun CPU tidak penuh.
 
 ## Screenshot
 

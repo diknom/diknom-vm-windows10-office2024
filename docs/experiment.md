@@ -142,9 +142,24 @@ Saat guest berjalan dengan tiga aplikasi terbuka:
 - RSS QEMU: sekitar **1.600 MB**
 - Disk root: 48 GB, terpakai 36 GB, bebas 9,0 GB
 
-Artinya: guest 2 GB bukan "gratis". Host Linux, cache, QEMU, dan zram/swap
-semua berebut sisa RAM. Desktop host bisa terasa berat saat Office membuka
-dokumen besar.
+**Penting:** free 168 MB adalah kondisi host secara keseluruhan, bukan RAM
+Windows saja. Pada saat pengukuran, host juga menjalankan **Hermes Agent,
+Chrome, desktop XFCE, cache, dan zram/swap**. Hermes adalah proses agent yang
+memantau/mengendalikan eksperimen; Chrome dan desktop juga aktif. Jadi host
+terlihat hampir kehabisan RAM karena beban gabungan, bukan karena guest
+memakai seluruh 4 GB.
+
+CPU host masih aman:
+
+- Celeron N4020: 2 core / 2 thread.
+- Task Manager guest: **2% idle**, **4% saat Word**, **3% saat tiga aplikasi**.
+- Proses QEMU: sekitar **41–90%** CPU process (kira-kira 0,4–0,9 core,
+  tergantung fase boot/aplikasi).
+- Dua core tidak tersaturasi; bottleneck utama adalah RAM dan eMMC.
+
+Artinya: guest 2 GB bukan "gratis". Host Linux, cache, QEMU, Hermes, Chrome,
+dan zram/swap semua berebut RAM. Desktop host bisa terasa berat saat Office
+membuka dokumen besar, walaupun CPU tidak mentok.
 
 ## Disk
 
