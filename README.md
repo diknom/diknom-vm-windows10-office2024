@@ -133,6 +133,10 @@ latensi atau angka FPS.
 - **Jangan membuka browser berat di guest.** Kalau perlu browsing di dalam
   Windows, batasi sekitar **4 tab**. Lebih dari itu, gunakan browser di host
   Linux atau remote ke mesin lain; RAM 2 GB akan cepat habis.
+- **Saat VM menyala dan browser dibuka di host Linux, batasi sekitar 5 tab.**
+  Ini lebih konservatif daripada browsing host tanpa VM. Jika bisa, pakai
+  3–4 tab saja; tab video, web app berat, atau banyak ekstensi menaikkan
+  kebutuhan RAM dengan cepat.
 - Untuk kerja dokumen, lebih nyaman membuka Office saja di guest dan browser
   di host. Ini mengurangi tekanan RAM dan membuat input tetap lancar.
 

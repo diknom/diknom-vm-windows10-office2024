@@ -174,6 +174,10 @@ Pengalaman langsung selama eksperimen:
   Windows. Lebih dari itu, pindahkan browser ke host Linux atau remote ke
   mesin lain. RAM 2 GB cepat habis, terutama untuk situs dengan video,
   ekstensi, atau banyak script.
+- **Browser di host saat VM menyala:** batasi sekitar **5 tab**. Ini bukan
+  target yang diuji secara presisi, melainkan batas konservatif karena QEMU
+  sudah memakai sekitar 1,6 GB RSS dan host juga menjalankan Hermes, XFCE,
+  cache, dan zram/swap. Jika bisa, pakai 3–4 tab saja.
 - Pola yang disarankan: Office di guest, browser di host. Ini menjaga input
   tetap enak dan mengurangi tekanan RAM.
 
