@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Contoh konfigurasi Office Deployment Tool (ODT).
+  Hanya memasang Word, Excel, dan PowerPoint 64-bit.
+  Tidak ada product key di sini. Sesuaikan Product ID/channel dengan lisensi
+  yang kamu miliki. Jangan memakai aktivator ilegal.
+-->
+<Configuration>
+  <Add OfficeClientEdition="64" Channel="PerpetualVL2024">
+    <Product ID="ProPlus2024Volume">
+      <Language ID="en-us" />
+      <ExcludeApp ID="Access" />
+      <ExcludeApp ID="Outlook" />
+      <ExcludeApp ID="Publisher" />
+      <ExcludeApp ID="OneNote" />
+      <ExcludeApp ID="OneDrive" />
+      <ExcludeApp ID="Groove" />
+      <ExcludeApp ID="Lync" />
+    </Product>
+  </Add>
+  <RemoveMSI />
+  <Display Level="None" AcceptEULA="TRUE" />
+</Configuration>

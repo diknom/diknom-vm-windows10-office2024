@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Template shutdown bersih. destroy hanya fallback setelah timeout.
+set -uo pipefail
+
+VM_NAME="${VM_NAME:-win10}"
+URI="qemu:///session"
+B=$'\033[1m'; C=$'\033[36m'; G=$'\033[32m'; R=$'\033[31m'; N=$'\033[0m'
+
+state() { virsh --connect "$URI" domstate "$VM_NAME" 2>/dev/null | tr -d '[:space:]'; }
+saved() { virsh --connect "$URI" dominfo "$VM_NAME" 2>/dev/null | grep -iE 'Managed save:[[:space:]]*yes' >/dev/null 2>&1; }
+
+if saved; then
+    virsh --connect "$URI" managedsave-remove "$VM_NAME" >/dev/null 2>&1
+    echo "State tersimpan ${VM_NAME} dihapus; VM mati bersih."
+    exit 0
+fi
+
+if [ "$(state)" = "shutoff" ]; then
+    echo "VM ${VM_NAME} sudah mati."
+    exit 0
+fi
+
+echo "${C}Shutdown bersih ${B}${VM_NAME}${N} ...${N}"
+virsh --connect "$URI" shutdown "$VM_NAME" >/dev/null 2>&1
+
+for _ in $(seq 1 45); do
+    [ "$(state)" = "shutoff" ] && break
+    sleep 2
+done
+
+if [ "$(state)" != "shutoff" ]; then
+    echo "${R}Windows belum merespons; destroy (power cut) ...${N}"
+    virsh --connect "$URI" destroy "$VM_NAME" >/dev/null 2>&1
+    sleep 2
+fi
+
+echo "-------------------------------------------"
+echo " ${B}VM${N}      : $VM_NAME"
+echo " ${B}Status${N}  : $(state)"
+echo " ${B}VNC${N}     : OFF"
+echo "-------------------------------------------"

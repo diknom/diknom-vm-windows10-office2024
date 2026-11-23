@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Template start/resume. Ganti VM_NAME sesuai domainmu, atau rename file.
+# Tidak membuka viewer otomatis; buka Remmina/VNC sendiri.
+set -uo pipefail
+
+VM_NAME="${VM_NAME:-win10}"
+URI="qemu:///session"
+B=$'\033[1m'; C=$'\033[36m'; G=$'\033[32m'; R=$'\033[31m'; N=$'\033[0m'
+
+state() { virsh --connect "$URI" domstate "$VM_NAME" 2>/dev/null | tr -d '[:space:]'; }
+saved() { virsh --connect "$URI" dominfo "$VM_NAME" 2>/dev/null | grep -iE 'Managed save:[[:space:]]*yes' >/dev/null 2>&1; }
+
+if [ "$(state)" != "running" ]; then
+    echo "${C}Menyalakan/melanjutkan ${B}${VM_NAME}${N}${C} ...${N}"
+    virsh --connect "$URI" start "$VM_NAME" >/dev/null 2>&1 || {
+        echo "${R}Gagal start. Cek: virsh --connect qemu:///session list --all${N}" >&2
+        exit 1
+    }
+    for _ in $(seq 1 20); do
+        [ "$(state)" = "running" ] && break
+        sleep 1
+    done
+fi
+
+vnc=$(virsh --connect "$URI" dumpxml "$VM_NAME" 2>/dev/null \
+    | sed -n "s/.*type='vnc'.*port='\([0-9]*\)'.*/\1/p" | head -1)
+spice=$(virsh --connect "$URI" dumpxml "$VM_NAME" 2>/dev/null \
+    | sed -n "s/.*type='spice'.*port='\([0-9]*\)'.*/\1/p" | head -1)
+[ -n "$vnc" ] || vnc=5900
+
+echo "-------------------------------------------"
+echo " ${B}VM${N}      : $VM_NAME"
+echo " ${B}Status${N}  : $(state)"
+echo " ${B}VNC${N}     : 127.0.0.1:${vnc}  (vnc://127.0.0.1:${vnc})"
+[ -n "$spice" ] && echo " ${B}SPICE${N}   : 127.0.0.1:${spice}"
+echo " ${B}Viewer${N}  : tidak dibuka; buka Remmina sendiri"
+saved && echo " ${B}State${N}   : resume dari managed save"
+free -m | awk '/^Mem:/ {printf " Host    : RAM %.1fGi/%.1fGi terpakai, %.1fGi tersedia\n", $3/1024, $2/1024, $7/1024}'
+echo "-------------------------------------------"

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Template suspend: simpan state RAM seperti "Save State" VirtualBox.
+set -uo pipefail
+
+VM_NAME="${VM_NAME:-win10}"
+URI="qemu:///session"
+B=$'\033[1m'; C=$'\033[36m'; G=$'\033[32m'; Y=$'\033[33m'; N=$'\033[0m'
+
+state() { virsh --connect "$URI" domstate "$VM_NAME" 2>/dev/null | tr -d '[:space:]'; }
+saved() { virsh --connect "$URI" dominfo "$VM_NAME" 2>/dev/null | grep -iE 'Managed save:[[:space:]]*yes' >/dev/null 2>&1; }
+
+if saved; then
+    echo "${Y}VM ${VM_NAME} sudah dalam managed save.${N}"
+    exit 0
+fi
+
+if [ "$(state)" != "running" ]; then
+    echo "VM ${VM_NAME} tidak berjalan (state: $(state))."
+    exit 0
+fi
+
+echo "${C}Menyimpan state ${B}${VM_NAME}${N}${C} (suspend) ...${N}"
+virsh --connect "$URI" managedsave "$VM_NAME" >/dev/null 2>&1 || {
+    echo "Gagal managedsave." >&2
+    exit 1
+}
+
+echo "-------------------------------------------"
+echo " ${B}VM${N}      : $VM_NAME"
+echo " ${B}Status${N}  : $(state) (state tersimpan)"
+echo " ${B}Lanjut${N}   : jalankan ${B}${VM_NAME}on${N}"
+echo "-------------------------------------------"

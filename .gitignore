@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.iso
+*.qcow2
+*.save
+assets/experiment/raw/
