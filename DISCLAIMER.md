@@ -1,6 +1,7 @@
 # Disklaimer
 
-Repo **DikNom TinyWin** adalah dokumentasi eksperimen dan skrip otomasi.
+Repo **DikNom VM Windows 10 untuk Microsoft Office 2024** adalah dokumentasi
+eksperimen dan skrip otomasi.
 Repo ini bukan produk Microsoft dan tidak berafiliasi dengan Microsoft atau
 NTDEV.
 

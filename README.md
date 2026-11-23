@@ -1,8 +1,8 @@
-# DikNom TinyWin
+# DikNom VM Windows 10 untuk Microsoft Office 2024
 
-**Eksperimen Windows ringan untuk laptop 4 GB** — tiny10, KVM/libvirt, dan
-Office 2024 di dalam VM. Repo ini mendokumentasikan apa yang benar-benar
-terukur, bukan klaim "Windows ringan" tanpa bukti.
+**Eksperimen menjalankan Windows 10 di dalam VM pada laptop 4 GB, lalu
+Microsoft Office 2024 di dalamnya.** Repo ini mendokumentasikan apa yang
+benar-benar terukur, bukan klaim "Windows ringan" tanpa bukti.
 
 Dibuat oleh **DikNom**. Status: **eksperimen / bukan rekomendasi produksi**.
 

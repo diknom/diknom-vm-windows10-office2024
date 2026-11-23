@@ -1,5 +1,5 @@
 #!/bin/sh
-# Siapkan host KVM/libvirt untuk DikNom TinyWin.
+# Siapkan host KVM/libvirt untuk DikNom VM Windows 10 + Office 2024.
 set -eu
 
 say() { printf '%s\n' "$*"; }
@@ -11,7 +11,7 @@ else
     SUDO="sudo"
 fi
 
-say "== DikNom TinyWin — setup host =="
+say "== DikNom VM Windows 10 + Office 2024 — setup host =="
 say "Host: $(uname -srm)"
 
 if [ -z "${SUDO}" ]; then
