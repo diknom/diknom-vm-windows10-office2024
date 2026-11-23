@@ -161,6 +161,25 @@ Artinya: guest 2 GB bukan "gratis". Host Linux, cache, QEMU, Hermes, Chrome,
 dan zram/swap semua berebut RAM. Desktop host bisa terasa berat saat Office
 membuka dokumen besar, walaupun CPU tidak mentok.
 
+## Kenyamanan penggunaan
+
+Pengalaman langsung selama eksperimen:
+
+- Mengetik di Word, Excel, dan PowerPoint terasa nyaman; input keyboard, klik,
+  scroll, dan pindah jendela tetap responsif selama guest tidak menjalankan
+  aplikasi berat lain.
+- Dokumen ringan bisa dibuka dan diedit tanpa lag yang mengganggu. Ini bukan
+  benchmark latensi; ini observasi penggunaan.
+- **Browser di guest:** batasi sekitar **4 tab** jika harus browsing di
+  Windows. Lebih dari itu, pindahkan browser ke host Linux atau remote ke
+  mesin lain. RAM 2 GB cepat habis, terutama untuk situs dengan video,
+  ekstensi, atau banyak script.
+- Pola yang disarankan: Office di guest, browser di host. Ini menjaga input
+  tetap enak dan mengurangi tekanan RAM.
+
+Batas 4 tab adalah saran konservatif, bukan hasil pengukuran tab yang presisi.
+Setiap tab dapat memakai puluhan sampai ratusan MB tergantung isi halaman.
+
 ## Disk
 
 - qcow2 virtual: 10 GiB

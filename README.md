@@ -121,6 +121,25 @@ dokumen nyata ke repo ini.
 - Screenshot dan angka eksperimen bisa direproduksi.
 - VNC/SPICE tersedia untuk melihat VM dari Remmina.
 
+## Pengalaman penggunaan
+
+Catatan ini adalah pengalaman langsung saat eksperimen, bukan benchmark
+latensi atau angka FPS.
+
+- **Mengetik terasa nyaman** untuk Word, Excel, PowerPoint, dan aplikasi
+  ringan. Input keyboard, klik, scroll, dan pindah jendela tetap responsif
+  selama tidak ada aplikasi berat lain di guest.
+- Dokumen kosong dan dokumen ringan bisa dibuka dan diedit tanpa lag berarti.
+- **Jangan membuka browser berat di guest.** Kalau perlu browsing di dalam
+  Windows, batasi sekitar **4 tab**. Lebih dari itu, gunakan browser di host
+  Linux atau remote ke mesin lain; RAM 2 GB akan cepat habis.
+- Untuk kerja dokumen, lebih nyaman membuka Office saja di guest dan browser
+  di host. Ini mengurangi tekanan RAM dan membuat input tetap lancar.
+
+Batas 4 tab adalah saran konservatif, bukan hasil uji tab yang presisi. Setiap
+tab dapat memakai puluhan sampai ratusan MB tergantung situs, ekstensi, dan
+video.
+
 **Batasan:**
 
 - Host 4 GB adalah bottleneck utama. Guest 2 GB masih di bawah minimum resmi
